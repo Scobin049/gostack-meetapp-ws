@@ -1,13 +1,25 @@
 import Meetup from '../models/Meetup';
 
 class MeetupController {
+  async index(req, res) {
+    const meetup = await Meetup.findAll({ where: { user_id: req.userId } });
+
+    return res.json(meetup);
+  }
+
   async store(req, res) {
-    console.log(req.body);
-    // const { originalname: name, filename: path } = req.body;
+    const { title, description, date, location, image_id } = req.body;
 
-    // const file = await File.create({ name, path, user_id: req.userId });
+    const meetup = await Meetup.create({
+      title,
+      description,
+      date,
+      location,
+      image_id,
+      user_id: req.userId,
+    });
 
-    return res.json();
+    return res.json(meetup);
   }
 }
 

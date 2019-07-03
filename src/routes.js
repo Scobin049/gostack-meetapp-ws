@@ -12,6 +12,8 @@ import multerConfig from './config/multer';
 const routes = new Router();
 const upload = multer(multerConfig);
 
+routes.get('/meetups', authMiddleware, MeetupController.index);
+
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 routes.post('/meetups', authMiddleware, MeetupController.store);
