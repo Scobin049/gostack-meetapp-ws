@@ -13,17 +13,20 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.get('/meetups', authMiddleware, MeetupController.index);
+routes.post('/meetups', authMiddleware, MeetupController.store);
+routes.put('/meetups/:id', authMiddleware, MeetupController.update);
+routes.delete('/meetups/:id', authMiddleware, MeetupController.delete);
 
 routes.post('/users', UserController.store);
+routes.put('/users', authMiddleware, UserController.update);
+
 routes.post('/sessions', SessionController.store);
-routes.post('/meetups', authMiddleware, MeetupController.store);
+
 routes.post(
   '/files',
   authMiddleware,
   upload.single('file'),
   FileController.store
 );
-
-routes.put('/users', authMiddleware, UserController.update);
 
 export default routes;
